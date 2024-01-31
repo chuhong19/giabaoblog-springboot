@@ -1,4 +1,4 @@
-package vn.giabaoblog.giabaoblogserver.services;
+package vn.giabaoblog.giabaoblogserver.services.authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import vn.giabaoblog.giabaoblogserver.data.domains.Role;
 import vn.giabaoblog.giabaoblogserver.data.domains.User;
+import vn.giabaoblog.giabaoblogserver.services.authentication.ITokenClaimComponent;
 
 import java.security.Key;
 import java.util.Date;

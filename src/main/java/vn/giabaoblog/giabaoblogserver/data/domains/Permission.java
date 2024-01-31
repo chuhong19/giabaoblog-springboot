@@ -21,11 +21,8 @@ public class Permission extends Auditable {
     @Column(name="id")
     private Long id;
 
-    @Column(name="permission", nullable = false)
+    @Column(name="permission", nullable = true)
     private String permission;
-
-    @Column(name="name", nullable = false)
-    private String name;
 
     // enabled as default
     @Column(name="enabled")

@@ -2,6 +2,7 @@ package vn.giabaoblog.giabaoblogserver.data.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +10,8 @@ import vn.giabaoblog.giabaoblogserver.data.enums.Gender;
 
 import java.util.*;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +23,7 @@ import java.util.*;
         }
 )
 public class User extends Auditable implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -144,4 +146,5 @@ public class User extends Auditable implements UserDetails {
         System.out.println("Authorities: " + authorities);
         return authorities;
     }
+
 }

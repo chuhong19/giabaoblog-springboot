@@ -30,9 +30,8 @@ public class Token extends Auditable {
     @Column(name = "[expired]")
     public boolean expired;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "[user_id]")
-    @JoinColumn(name = "[user_id]", referencedColumnName = "[id]", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "[user_id]", referencedColumnName = "[id]",
+            nullable = true, insertable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     public User user;
 }

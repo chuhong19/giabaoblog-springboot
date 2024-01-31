@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import vn.giabaoblog.giabaoblogserver.data.repository.TokenRepository;
-import vn.giabaoblog.giabaoblogserver.services.JwtService;
+import vn.giabaoblog.giabaoblogserver.services.authentication.JwtService;
 
 import java.io.IOException;
 

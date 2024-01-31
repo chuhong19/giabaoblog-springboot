@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import vn.giabaoblog.giabaoblogserver.data.domains.User;
-import vn.giabaoblog.giabaoblogserver.services.DefaultTokenClaimComponentImpl;
-import vn.giabaoblog.giabaoblogserver.services.ITokenClaimComponent;
 import vn.giabaoblog.giabaoblogserver.services.UserService;
+import vn.giabaoblog.giabaoblogserver.services.authentication.DefaultTokenClaimComponentImpl;
+import vn.giabaoblog.giabaoblogserver.services.authentication.ITokenClaimComponent;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;

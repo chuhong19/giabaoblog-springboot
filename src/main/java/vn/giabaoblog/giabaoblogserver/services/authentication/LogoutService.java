@@ -1,4 +1,4 @@
-package vn.giabaoblog.giabaoblogserver.services;
+package vn.giabaoblog.giabaoblogserver.services.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

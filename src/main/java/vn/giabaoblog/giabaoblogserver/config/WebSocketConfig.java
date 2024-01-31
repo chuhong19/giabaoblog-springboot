@@ -1,0 +1,58 @@
+//package vn.giabaoblog.giabaoblogserver.config;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.messaging.simp.config.ChannelRegistration;
+//import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+//import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+//import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+//import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
+//import vn.giabaoblog.giabaoblogserver.data.repository.TokenRepository;
+//import vn.giabaoblog.giabaoblogserver.services.authentication.JwtService;
+//
+//
+//@Configuration
+//@EnableWebSocketMessageBroker
+//@CrossOrigin(originPatterns = "*")
+//public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+//
+//    @Autowired
+//    private JwtService jwtService;
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+//    @Autowired
+//    private TokenRepository tokenRepository;
+//
+//    @Override
+//    public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
+//        // Configure WebSocket transport options
+//    }
+//
+//    @Override
+//    public void configureMessageBroker(MessageBrokerRegistry config) {
+//        config.enableSimpleBroker("/topic");
+//        config.setApplicationDestinationPrefixes("/app");
+//    }
+//
+//    @Override
+//    public void registerStompEndpoints(StompEndpointRegistry registry) {
+//        registry.addEndpoint("/ws", "/websocket", "/stomp")
+//                //.addInterceptors(new AccessTokenHandshakeInterceptor(jwtService, userDetailsService, tokenRepository))
+//                .setAllowedOriginPatterns("*");
+//        //.withSockJS();
+//    }
+//
+//    @Override
+//    public void configureClientInboundChannel(ChannelRegistration registration) {
+//        // TODO TaskExecutorRegistration
+//    }
+//
+//    @Override
+//    public void configureClientOutboundChannel(ChannelRegistration registration) {
+//        // TODO TaskExecutorRegistration
+//    }
+//}
+//

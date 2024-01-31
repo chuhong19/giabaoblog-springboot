@@ -24,4 +24,5 @@ public abstract class Auditable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
+
 }
