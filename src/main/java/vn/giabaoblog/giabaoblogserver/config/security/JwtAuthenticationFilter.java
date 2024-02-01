@@ -75,4 +75,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         private Claims claims;
         private WebAuthenticationDetails webAuthenticationDetails;
     }
+
 }

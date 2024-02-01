@@ -1,20 +1,24 @@
 --liquibase formatted sql
 
---changeset phuoccm@suga.vn:create-table-roles
+--changeset giabaost1910:create-table-roles
 CREATE TABLE "roles" (
     "id" bigserial PRIMARY KEY,
-    "role" varchar(255) NOT NULL
+    "role" varchar(255) NOT NULL,
+    "created_at" timestamptz(6),
+    "updated_at" timestamptz(6)
 );
 
---changeset phuoccm@suga.vn:create-table-permissions
+--changeset giabaost1910:create-table-permissions
 CREATE TABLE "permissions" (
     "id" bigserial PRIMARY KEY,
     "permission" varchar(255) NOT NULL,
     "enabled" boolean DEFAULT true,
-    "note" varchar(255)
+    "note" varchar(255),
+    "created_at" timestamptz(6),
+    "updated_at" timestamptz(6)
 );
 
---changeset phuoccm@suga.vn:create-table-relations-roles-permissions
+--changeset giabaost1910:create-table-relations-roles-permissions
 CREATE TABLE "permissions_roles" (
     "role_id" bigint,
     "permission_id" bigint,
@@ -27,10 +31,11 @@ INSERT INTO permissions(id, permission, note) VALUES (1, 'LOGIN', 'User Login');
 INSERT INTO permissions(id, permission, note) VALUES (2, 'VIEW_PROFILE', 'View user profile');
 INSERT INTO permissions(id, permission, note) VALUES (3, 'ADMIN_USER_DATA', 'Manage user data');
 
-INSERT INTO permissions(id, permission, note, enabled) VALUES (4, 'ADMIN_STATISTICS', 'View statistical graphs', false);
+INSERT INTO permissions(id, permission, note) VALUES (4, 'MANAGE_CONTENT', 'Content moderation');
 
 INSERT INTO roles(id, role) VALUES (1, 'USER');
 INSERT INTO roles(id, role) VALUES (2, 'ADMINISTRATOR');
+INSERT INTO roles(id, role) VALUES (3, 'MOD');
 
 INSERT INTO permissions_roles(permission_id, role_id) VALUES (1, 1);
 INSERT INTO permissions_roles(permission_id, role_id) VALUES (2, 1);
@@ -38,8 +43,12 @@ INSERT INTO permissions_roles(permission_id, role_id) VALUES (2, 1);
 INSERT INTO permissions_roles(permission_id, role_id) VALUES (1, 2);
 INSERT INTO permissions_roles(permission_id, role_id) VALUES (2, 2);
 INSERT INTO permissions_roles(permission_id, role_id) VALUES (3, 2);
+INSERT INTO permissions_roles(permission_id, role_id) VALUES (4, 2);
 
---changeset phuoccm@suga.vn:create-table-users
+INSERT INTO permissions_roles(permission_id, role_id) VALUES (1, 3);
+INSERT INTO permissions_roles(permission_id, role_id) VALUES (4, 3);
+
+--changeset giabaost1910:create-table-users
 CREATE TABLE "users" (
     "id" bigserial PRIMARY KEY,
     "username" varchar(255) UNIQUE,
@@ -58,7 +67,7 @@ CREATE TABLE "users" (
     "reset_token" varchar(255)
 );
 
---changeset phuoccm@suga.vn:create-table-users_roles
+--changeset giabaost1910:create-table-users_roles
 CREATE TABLE "users_roles" (
     "user_id" bigint,
     "role_id" bigint,
@@ -68,7 +77,7 @@ CREATE TABLE "users_roles" (
 );
 
 
---changeset phuoccm@suga.vn:create-table-token
+--changeset giabaost1910:create-table-token
 CREATE TABLE "token" (
     "id" bigserial PRIMARY KEY,
     "user_id" int8,
@@ -80,24 +89,8 @@ CREATE TABLE "token" (
     "updated_at" timestamptz(6)
 );
 
---changeset phuoccm@suga.vn:create-table-user_alias
-CREATE TABLE "user_alias" (
-    "id" bigserial PRIMARY KEY,
-    "user_id" int8 NOT NULL,
-    "auth_code" varchar(255),
-    "auth_id" varchar(255) NOT NULL,
-    "grant_type" varchar(255) NOT NULL,
-    "country" varchar(255),
-    "confirmed" bool NOT NULL,
-    "enabled" bool NOT NULL,
-    "auth_code_expires_at" timestamptz(6),
-    "confirmed_at" timestamptz(6),
-    "created_at" timestamptz(6),
-    "updated_at" timestamptz(6)
-);
 
-
---changeset phuoccm@suga.vn:create-table-users_special_permissions
+--changeset giabaost1910:create-table-users_special_permissions
 CREATE TABLE "users_special_permissions" (
     "user_id" bigint,
     "special_permission_id" bigint,
@@ -106,12 +99,13 @@ CREATE TABLE "users_special_permissions" (
     FOREIGN KEY ("special_permission_id") REFERENCES "permissions" ("id") ON DELETE CASCADE
 );
 
---changeset phuoccm@suga.vn:add-auditable-to-domain-permission
-ALTER TABLE "permissions"
-    ADD COLUMN created_at timestamptz(6),
-    ADD COLUMN updated_at timestamptz(6);
+--changeset giabaost1910:create-table-posts
+CREATE TABLE "posts" (
+    "id" bigserial PRIMARY KEY,
+    "title" varchar(255) NOT NULL,
+    "content" varchar(255) NOT NULL,
+    "author_id" bigint,
+    "created_at" timestamptz(6),
+    "updated_at" timestamptz(6)
+);
 
---changeset phuoccm@suga.vn:add-auditable-to-domain-role
-ALTER TABLE "roles"
-    ADD COLUMN created_at timestamptz(6),
-    ADD COLUMN updated_at timestamptz(6);

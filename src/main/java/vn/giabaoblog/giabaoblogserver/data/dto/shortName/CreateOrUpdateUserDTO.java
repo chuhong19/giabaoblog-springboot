@@ -13,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class CreateOrUpdateUserDTO implements Serializable {
+
     private Long userId;
     private String username;
     private String password;
@@ -21,4 +22,5 @@ public class CreateOrUpdateUserDTO implements Serializable {
     private Gender gender;
     private String email;
     private boolean enabled;
+
 }
