@@ -16,8 +16,10 @@ import vn.giabaoblog.giabaoblogserver.data.dto.shortName.PostDTO;
 import vn.giabaoblog.giabaoblogserver.data.repository.PostRepository;
 import vn.giabaoblog.giabaoblogserver.data.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,10 +38,32 @@ public class PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
-//    public List<Post> getAllMyPosts() {
-//
-//    }
-//
+    public List<Post> getAllMyPosts() {
+
+        List<Post> allPosts = getAllPosts();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        Long userId = principal.getId();
+        List<Post> allMyPosts =
+                allPosts.stream()
+                        .filter(post -> userId.equals(post.getAuthorId()))
+                        .collect(Collectors.toList());
+        return allMyPosts;
+    }
+
+    public void getAllMyFollowPosts() {
+        List<Post> allPosts = getAllPosts();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        System.out.println("Principal: " + principal);
+        Long userId = principal.getId();
+        List<Post> allMyFollowPosts =
+                allPosts.stream()
+                        .filter(post -> userId.equals(post.getAuthorId()))
+                        .collect(Collectors.toList());
+
+    }
+
     public PostDTO createPost(CreateOrUpdatePostDTO request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User principal = (User) authentication.getPrincipal();

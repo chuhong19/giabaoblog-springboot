@@ -98,4 +98,16 @@ public class UserController {
         return userService.filterUser(request);
     }
 
+    @PostMapping("/follow")
+    public StandardResponse followUser(@RequestBody UserIdDTO request) {
+        userService.followUser(request.getUserId());
+        return StandardResponse.create("200", "Follow success", request.getUserId());
+    }
+
+    @PostMapping("/unfollow")
+    public StandardResponse unfollowUser(@RequestBody UserIdDTO request) {
+        userService.unfollowUser(request.getUserId());
+        return StandardResponse.create("200", "Unfollow success", request.getUserId());
+    }
+
 }

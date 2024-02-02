@@ -23,4 +23,5 @@ public class PostDTO implements Serializable {
         this.content = post.getContent();
         this.authorId = post.getAuthorId();
     }
+
 }

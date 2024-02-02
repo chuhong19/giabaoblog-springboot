@@ -28,11 +28,16 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-//    @GetMapping("/getAllMyPosts")
-//    public List<Post> getAllMyPosts() {
-//        return postService.getAllMyPosts();
-//    }
-//
+    @GetMapping("/getAllMyPosts")
+    public List<Post> getAllMyPosts() {
+        return postService.getAllMyPosts();
+    }
+
+    @GetMapping("/getAllMyFollowPosts")
+    public void getAllMyFollowPosts() {
+        postService.getAllMyFollowPosts();
+    }
+
     @PostMapping("/create")
     public StandardResponse createPost(@RequestBody CreateOrUpdatePostDTO request) {
         PostDTO postDTO = postService.createPost(request);

@@ -76,7 +76,6 @@ CREATE TABLE "users_roles" (
     FOREIGN KEY ("role_id") REFERENCES "roles" ("id") ON DELETE CASCADE
 );
 
-
 --changeset giabaost1910:create-table-token
 CREATE TABLE "token" (
     "id" bigserial PRIMARY KEY,
@@ -109,3 +108,9 @@ CREATE TABLE "posts" (
     "updated_at" timestamptz(6)
 );
 
+----changeset giabaost1910:create-table-users_follows
+CREATE TABLE "user_follow" (
+    "id" bigserial PRIMARY KEY,
+    "user_id" bigint,
+    "follow_id" bigint
+);

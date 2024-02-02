@@ -1,5 +1,6 @@
 package vn.giabaoblog.giabaoblogserver.services;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import lombok.extern.apachecommons.CommonsLog;
@@ -14,15 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.giabaoblog.giabaoblogserver.config.exception.*;
-import vn.giabaoblog.giabaoblogserver.data.domains.Permission;
-import vn.giabaoblog.giabaoblogserver.data.domains.Role;
-import vn.giabaoblog.giabaoblogserver.data.domains.User;
-import vn.giabaoblog.giabaoblogserver.data.domains.User_;
+import vn.giabaoblog.giabaoblogserver.data.domains.*;
 import vn.giabaoblog.giabaoblogserver.data.dto.request.SearchUserRequest;
 import vn.giabaoblog.giabaoblogserver.data.dto.shortName.CreateOrUpdateUserDTO;
 import vn.giabaoblog.giabaoblogserver.data.dto.shortName.UserDTO;
 import vn.giabaoblog.giabaoblogserver.data.repository.PermissionRepository;
 import vn.giabaoblog.giabaoblogserver.data.repository.RoleRepository;
+import vn.giabaoblog.giabaoblogserver.data.repository.UserFollowRepository;
 import vn.giabaoblog.giabaoblogserver.data.repository.UserRepository;
 import vn.giabaoblog.giabaoblogserver.services.support.EmailService;
 import vn.giabaoblog.giabaoblogserver.services.validation.PasswordValidatorService;
@@ -34,6 +33,10 @@ import java.util.stream.Collectors;
 @CommonsLog
 @Service
 public class UserService {
+
+    @Autowired
+    private UserFollowRepository userFollowRepository;
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -486,5 +489,19 @@ public class UserService {
         Pageable pageable = PageRequest.of(page, limit, Sort.by(User_.ID).descending());
 
         return userRepository.findAll(conditions, pageable);
+    }
+
+    public void followUser(Long followId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        Long myId = principal.getId();
+        UserFollow userFollow = new UserFollow();
+        userFollow.setUserId(myId);
+        userFollow.setFollowId(followId);
+        userFollowRepository.save(userFollow);
+    }
+
+    public void unfollowUser(Long userId) {
+
     }
 }

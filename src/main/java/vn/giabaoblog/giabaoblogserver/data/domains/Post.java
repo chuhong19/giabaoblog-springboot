@@ -5,11 +5,11 @@ import lombok.*;
 
 @Data
 @Builder
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name= "posts")
-public class Post extends Auditable{
+public class Post extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
